@@ -1,11 +1,9 @@
 package com.receipto.controller;
 
 import com.receipto.models.Receipt;
-import com.receipto.repository.ReceiptRepository;
+import com.receipto.service.ReceiptService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -14,9 +12,15 @@ import java.util.Collection;
 @RequiredArgsConstructor
 public class ReceiptController {
 
-    private final ReceiptRepository receiptRepository;
+    private final ReceiptService receiptService;
+
     @GetMapping
-    public Collection<Receipt> getAllReceipts(){
-        return receiptRepository.findAll();
+    public Collection<Receipt> getAllReceipts() {
+        return receiptService.getAllReceipts();
+    }
+
+    @PostMapping
+    public Receipt saveReceipt(@RequestBody Receipt receipt) {
+        return receiptService.saveReceipt(receipt);
     }
 }
